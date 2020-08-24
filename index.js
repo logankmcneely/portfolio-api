@@ -1,27 +1,22 @@
 const express = require('express')
 const server = express()
-const config = require('./config/dev')
 
-const mongoose = require('mongoose')
-mongoose.connect(config.DB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true
-}, (err) => {
-  if (err) console.log(err)
-  else console.log('> Connected to DB')
-})
+async function runServer() {
 
-const portfoliosRoutes = require('./routes/portfolios')
+  // Connect DB
+  await require('./db').connect()
 
-server.get('/test', (req, res) => {
-  return res.json({ message: 'test is working' })
-})
+  // Create Routes
+  const portfoliosRoutes = require('./routes/portfolios')
+  server.use('/api/v1/portfolios', portfoliosRoutes)
 
-server.use('/api/v1/portfolios', portfoliosRoutes)
+  // Initialize server
+  const PORT = process.env.PORT || 3001
+  server.listen(PORT, (err) => {
+    if (err) console.error(err)
+    console.log('> Server ready on port:', PORT)
+  })
 
-const PORT = process.env.PORT || 3001
-server.listen(PORT, (err) => {
-  if (err) console.error(err)
-  console.log('> Server ready on port:', PORT)
-})
+}
+
+runServer()
