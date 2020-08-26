@@ -1,10 +1,13 @@
 const express = require('express')
 const server = express()
+const bodyParser = require('body-parser')
 
 async function runServer() {
 
   // Connect DB
   await require('./db').connect()
+
+  server.use(bodyParser.json())
 
   // Create Routes
   const portfoliosRoutes = require('./routes/portfolios')
