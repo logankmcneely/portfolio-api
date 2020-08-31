@@ -38,3 +38,8 @@ exports.updatePortfolio = async (req, res) => {
     return res.status(422).send(`API Error: ${e.message}`)
   }
 }
+
+exports.deletePortfolio = async(req, res) => {
+  const portfolio = await Portfolio.findOneAndRemove({_id: req.params.id})
+  return res.json({_id: portfolio.id})
+}
