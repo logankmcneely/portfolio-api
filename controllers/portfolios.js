@@ -17,14 +17,23 @@ exports.getPortfolioById = async (req, res) => {
 
 exports.createPortfolio = async (req, res) => {
   const portfolioData = req.body
-  // TODO: Extract ID from req
-  const userId = 'google-oauth2|110427062429677002273'
+  const userId = req.user.sub
   const portfolio = new Portfolio(portfolioData)
   portfolio.userId = userId
 
   try {
     const newPortfolio = await portfolio.save()
     return res.json(newPortfolio)
+  } catch (e) {
+    return res.status(422).send(`API Error: ${e.message}`)
+  }
+}
+
+exports.updatePortfolio = async (req, res) => {
+  const { body, params: {id}} = req
+  try {
+    const updatedPortfolio = await Portfolio.findOneAndUpdate({_id: id}, body, {new: true, runValidators: true})
+    return res.json(updatedPortfolio)
   } catch (e) {
     return res.status(422).send(`API Error: ${e.message}`)
   }
