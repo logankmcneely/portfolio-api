@@ -33,6 +33,32 @@ const data = {
       endDate: '01/01/2011',
       userId: 'google-oauth2|110427062429677002273'
     }
+  ],
+  blogs: [
+    {
+      slug: 'my-first-blog',
+      title: 'My First Blog',
+      subTitle: 'It was chilly winter day...',
+      content: '<p>Some very nice content</p>',
+      userId: 'google-oauth2|110427062429677002273',
+      status: 'published'
+    },
+    {
+      slug: 'my-second-blog',
+      title: 'My Second Blog',
+      subTitle: 'It was hot summer day...',
+      content: '<p>Some very nice content</p>',
+      userId: 'google-oauth2|110427062429677002273',
+      status: 'published'
+    },
+    {
+      slug: 'my-third-blog',
+      title: 'My Third Blog',
+      subTitle: 'It was rainy spring day...',
+      content: '<p>Some very nice content</p>',
+      userId: 'google-oauth2|108056116139036628375',
+      status: 'published'
+    }
   ]
 }
 
