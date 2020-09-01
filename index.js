@@ -10,8 +10,8 @@ async function runServer() {
   server.use(bodyParser.json())
 
   // Create Routes
-  const portfoliosRoutes = require('./routes/portfolios')
-  server.use('/api/v1/portfolios', portfoliosRoutes)
+  server.use('/api/v1/portfolios', require('./routes/portfolios'))
+  server.use('/api/v1/blogs', require('./routes/blogs'))
 
   // Initialize server
   const PORT = process.env.PORT || 3001

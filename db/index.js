@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 
 // Import models
 require('./models/portfolio')
+require('./models/blog')
 
 exports.connect = () => {
   return mongoose.connect(
