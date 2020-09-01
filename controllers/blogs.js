@@ -25,6 +25,30 @@ exports.createBlog = async (req, res) => {
     const createdBlog = await blog.save()
     return res.json(createdBlog)
   } catch (e) {
-    return res.status(422).send(e)
+    return res.status(422).send(e.message)
   }
+}
+
+exports.updateBlog = async (req, res) => {
+  const { body, params: {id}} = req
+
+  Blog.findById(id, async (e, blog) => {
+
+    if (e) {
+      return res.status(422).send(e.message)
+    }
+
+    // TODO: Check if user is publishing blog 
+    // if user is publishing create SLUG
+
+    blog.set(body)
+    blog.updatedAt = new Date()
+
+    try {
+      const updatedBlog = await blog.save()
+      return res.json(updatedBlog)
+    } catch (e) {
+      return res.status(422).send(e.message)
+    }
+  })
 }
