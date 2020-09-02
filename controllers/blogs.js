@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
+const slugify = require('slugify')
 const Blog = mongoose.model('Blog')
 
 exports.getBlogs = async (req, res) => {
-  const blogs = await Blog.find({status: 'published'}).sort({createdAt: -1})
+  const blogs = await Blog.find({ status: 'published' }).sort({ createdAt: -1 })
   return res.json(blogs)
 }
 
@@ -18,7 +19,7 @@ exports.getBlogBySlug = async (req, res) => {
 
 exports.getBlogsByUser = async (req, res) => {
   const userId = req.user.sub
-  const blogs = await Blog.find({userId})
+  const blogs = await Blog.find({ userId })
   return res.json(blogs)
 }
 
@@ -36,7 +37,7 @@ exports.createBlog = async (req, res) => {
 }
 
 exports.updateBlog = async (req, res) => {
-  const { body, params: {id}} = req
+  const { body, params: { id } } = req
 
   Blog.findById(id, async (e, blog) => {
 
@@ -44,8 +45,11 @@ exports.updateBlog = async (req, res) => {
       return res.status(422).send(e.message)
     }
 
-    // TODO: Check if user is publishing blog 
-    // if user is publishing create SLUG
+    if (body.status && body.status === 'published' && !blog.slug) {
+      blog.slug = slugify(blog.title, {
+        lower: true,
+      })
+    }
 
     blog.set(body)
     blog.updatedAt = new Date()
