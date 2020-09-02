@@ -16,6 +16,12 @@ exports.getBlogBySlug = async (req, res) => {
   return res.json(blog)
 }
 
+exports.getBlogsByUser = async (req, res) => {
+  const userId = req.user.sub
+  const blogs = await Blog.find({userId})
+  return res.json(blogs)
+}
+
 exports.createBlog = async (req, res) => {
   const blogData = req.body
   blogData.userId = req.user.sub

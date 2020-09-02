@@ -10,11 +10,13 @@ const {
   getBlogs,
   getBlogById,
   getBlogBySlug,
+  getBlogsByUser,
   createBlog,
-  updateBlog
+  updateBlog,
 } = require('../controllers/blogs')
 
 router.get('', getBlogs)
+router.get('/me', checkJwt, checkRole('admin'), getBlogsByUser)
 router.get('/:id', getBlogById)
 router.get('/s/:slug', getBlogBySlug)
 
