@@ -33,7 +33,8 @@ const blogSchema = new Schema({
     default: 'draft',
     enum: [
       'draft',
-      'published'
+      'published',
+      'deleted'
     ]
   },
   createdAt: {
