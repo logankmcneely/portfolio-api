@@ -19,7 +19,6 @@ async function runServer() {
     if (err) console.error(err)
     console.log('> Server ready on port:', PORT)
   })
-
 }
 
 runServer()

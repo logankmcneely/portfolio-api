@@ -1,7 +1,8 @@
-const { portfolios, blogs } = require('./data')
 const Portfolio = require('../db/models/portfolio')
 const Blog = require('../db/models/blog')
+const { portfolios, blogs } = require('./data')
 
+// Class used to delete and add dummy data to the server for testing purposes
 class FakeDB {
 
   async clean() {

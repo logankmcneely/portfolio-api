@@ -17,4 +17,3 @@ exports.connect = () => {
     else console.log('> Connected to DB')
   })
 }
-

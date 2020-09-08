@@ -1,11 +1,13 @@
 const mongoose = require('mongoose')
 const Portfolio = mongoose.model('Portfolio')
 
+// Get all portfolios from server
 exports.getPortfolios = async (req, res) => {
   const portfolios = await Portfolio.find({})
   return res.json(portfolios)
 }
 
+// Get individual portfolio from server by its ID
 exports.getPortfolioById = async (req, res) => {
   try {
     const portfolio = await Portfolio.findById(req.params.id)
@@ -15,6 +17,7 @@ exports.getPortfolioById = async (req, res) => {
   }
 }
 
+// Save a new portfolio to the server
 exports.createPortfolio = async (req, res) => {
   const portfolioData = req.body
   const userId = req.user.sub
@@ -29,6 +32,7 @@ exports.createPortfolio = async (req, res) => {
   }
 }
 
+// Updates a portfolio and saves to the server
 exports.updatePortfolio = async (req, res) => {
   const { body, params: {id}} = req
   try {
@@ -39,6 +43,7 @@ exports.updatePortfolio = async (req, res) => {
   }
 }
 
+// Delets a portfolio from the server
 exports.deletePortfolio = async(req, res) => {
   const portfolio = await Portfolio.findOneAndRemove({_id: req.params.id})
   return res.json({_id: portfolio.id})

@@ -2,6 +2,9 @@ const config = require('../config/dev')
 const mongoose = require('mongoose')
 const fakeDB = require('./FakeDB')
 
+// Running 'npm run populate' in terminal will run this file which will delete
+// all data (both Portfolios and Blogs) from the server and import the dummy data
+// from FakeDB.js (in the same folder)
 mongoose.connect(
   config.DB_URI, {
   useNewUrlParser: true,
@@ -17,5 +20,3 @@ mongoose.connect(
     console.log('> DB populated')
   }
 })
-
-

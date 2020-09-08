@@ -1,3 +1,4 @@
+// Dummy data used for testing purposes
 const data = {
   portfolios: [
     {

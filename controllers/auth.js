@@ -6,7 +6,6 @@ const { AUTH0_AUDIENCE } = require('../config/dev')
 
 // Authentication middleware
 // Checks access token in auth headers of a req
-
 exports.checkJwt = jwt({
   secret: jwksRsa.expressJwtSecret({
     cache: true,
@@ -19,9 +18,8 @@ exports.checkJwt = jwt({
   algorithms: ['RS256']
 })
 
-exports.checkRole = (role) => (req, res, next) => {
+exports.checkRole = role => (req, res, next) => {
   const user = req.user
-
   if (user && user[config.AUTH0_NAMESPACE + '/roles'].includes(role)) {
     next()
   } else {
@@ -29,7 +27,7 @@ exports.checkRole = (role) => (req, res, next) => {
   }
 }
 
-exports.getAccessToken = (callback) => {
+exports.getAccessToken = callback => {
   const options = {
     method: 'POST',
     url: config.AUTH0_TOKEN_URL,
@@ -44,7 +42,7 @@ exports.getAccessToken = (callback) => {
     }
   }
 
-  return new Promise((resolve, reject)=> {
+  return new Promise((resolve, reject) => {
     request(options, (error, res, body) => {
       if (error) {
         return reject(new Error(error))
