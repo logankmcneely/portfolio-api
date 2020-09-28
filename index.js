@@ -13,6 +13,10 @@ async function runServer() {
   server.use('/api/v1/portfolios', require('./routes/portfolios'))
   server.use('/api/v1/blogs', require('./routes/blogs'))
 
+  server.get('', (req, res) => {
+    res.sendFile('index.html', {root: __dirname})
+  })
+
   // Initialize server
   const PORT = process.env.PORT || 3001
   server.listen(PORT, (err) => {
